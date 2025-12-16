@@ -1,46 +1,108 @@
 // Handle Button Clicks
-
 // Function to change the background color when a button is clicked
+// Implement the function to change background color       
 function changeBackgroundColor() {
-  // Implement the function to change background color
+ const r = Math.floor(Math.random() * 256);
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+  document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`; 
 }
-
-// Function to reset the background color when the body is double-clicked
+// Implement the function to reset background color
 function resetBackgroundColor() {
-  // Implement the function to reset background color
+  document.body.style.backgroundColor = '';
 }
 
 // Capture Keyboard Input
-
-// Function to display the key pressed by the user
+// Implement the function to display key pressed
 function displayKeyPress(event) {
-  // Implement the function to display key pressed
-}
+  const keyPressDisplay = document.getElementById('keyPressDisplay');
+  if (keyPressDisplay) {
+  keyPressDisplay.textContent = `Key pressed: ${event.key}`;
+  keyPressDisplay.style.fontWeight = 'bold';
+  keyPressDisplay.style.color = 'blue';
 
+  setTimeout(() => {
+    keyPressDisplay.style.fontWeight = 'normal';
+    keyPressDisplay.style.color = 'black';
+  }, 500);
+}
+}
 // Process Text Input
-
-// Function to display user input in real-time
 function displayUserInput() {
-  // Implement the function to display user input
+  const textInput = document.getElementById('textInput');
+  const textInputDisplay = document.getElementById('textInputDisplay');
+  if (textInput && textInputDisplay) {  
+    const text = textInput.value;
+    
+    if (text) {
+      textInputDisplay.textContent = `You typed: ${text}`; 
+      textInputDisplay.style.color = 'green';
+    }
+  }
 }
 
+// Mouse Hover Events
+function handleMouseOver() {
+  const hoverBox = document.getElementById('hoverBox');
+  if (hoverBox) {
+  hoverBox.style.backgroundColor = 'yellow';
+  hoverBox.textContent = 'You are hovering over me!';
+  hoverBox.style.transform = 'scale(1.1)';
+  hoverBox.style.boxShadow = `0 8px 16px rgba(0, 0, 0, 0.3)`;
+}
+}
+function handleMouseOut() {
+  const hoverBox = document.getElementById('hoverBox');
+  if (hoverBox) {
+  hoverBox.style.backgroundColor = 'lightgray';
+  hoverBox.textContent = 'Hover over me!';
+  hoverBox.style.transform = 'scale(1)';
+  hoverBox.style.boxShadow = 'none';
+}
+}
+// Handle Form Submission
+function handleFormSubmit(event) {
+  event.preventDefault(); // Prevent the default form submission behavior
+  const textInput = document.getElementById('textInput');
+  const submitDisplay = document.getElementById('submitDisplay');
+  if (textInput && submitDisplay) {
+  const submittedText = textInput.value;
+  submitDisplay.textContent = `Form submitted with input: ${submittedText}"`;
+  submitDisplay.style.color = 'green';
+}
+}
 // Attach Event Listeners
 function setupEventListeners() {
-// Attach event listener to change background color when the button is clicked
-  document
-    .getElementById('changeColorButton')
-    .addEventListener('click', changeBackgroundColor)
+// Button click event listeners
+const changeColorButton = document.getElementById('changeColorButton');
+  if (changeColorButton) {
+    changeColorButton.addEventListener('click', changeBackgroundColor);
+  }
 
-  // Attach event listener to reset background color when the body is double-clicked
-  document
-    .getElementById('resetColorButton')
-    .addEventListener('dblclick', resetBackgroundColor)
+  const resetColorButton = document.getElementById('resetColorButton');
+  if (resetColorButton) {
+    resetColorButton.addEventListener('dblclick', resetBackgroundColor);
+  }
+  // Keyboard event listener
+  document.addEventListener('keydown', displayKeyPress);
+ // Input event
+  const textInput = document.getElementById('textInput');
+  if (textInput) {
+    textInput.addEventListener('input', displayUserInput);
+  }
 
-  // Attach event listener to display key pressed when a key is pressed down
-  document.addEventListener('keydown', displayKeyPress)
+  // Mouse events 
+  const hoverBox = document.getElementById('hoverBox');
+  if (hoverBox) {
+    hoverBox.addEventListener('mouseover', handleMouseOver);
+    hoverBox.addEventListener('mouseout', handleMouseOut);
+  }
 
-  // Attach event listener to display user input in real-time as they type
-  document.getElementById('textInput').addEventListener('input', displayUserInput)
+  // Form submit event 
+  const userForm = document.getElementById('userForm');
+  if (userForm) {
+    userForm.addEventListener('submit', handleFormSubmit);
+  }
 }
 
 // Initialize event listeners when the DOM is loaded
@@ -54,4 +116,7 @@ module.exports = {
   displayKeyPress,
   displayUserInput,
   setupEventListeners,
+  handleMouseOver,
+  handleMouseOut,
+  handleFormSubmit
 }
